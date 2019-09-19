@@ -1,0 +1,642 @@
+\documentclass[a4paper,12pt]{article}
+
+%%% Работа с русским языком
+\usepackage{cmap}					% поиск в PDF
+\usepackage{mathtext} 				% русские буквы в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+
+%%% Дополнительная работа с математикой
+\usepackage{amsfonts,amssymb,amsthm,mathtools} % AMS
+\usepackage{amsmath}
+\usepackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+\usepackage[left = 2cm, right = 2cm, top = 2cm, bottom = 2cm]{geometry}
+
+
+%% Номера формул
+%\mathtoolsset{showonlyrefs=true} % Показывать номера только у тех формул, на которые есть \eqref{} в тексте.
+
+%% Шрифты
+\usepackage{euscript}	 % Шрифт Евклид
+\usepackage{mathrsfs} % Красивый матшрифт
+
+%% Свои команды
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+	{\hbox{$\mathsurround=0pt #1$}}{}}
+
+%%% Работа с картинками
+\usepackage{graphicx}  % Для вставки рисунков
+\graphicspath{{images/}{images2/}}  % папки с картинками
+\setlength\fboxsep{3pt} % Отступ рамки \fbox{} от рисунка
+\setlength\fboxrule{1pt} % Толщина линий рамки \fbox{}
+\usepackage{wrapfig} % Обтекание рисунков и таблиц текстом
+
+%%% Работа с таблицами
+\usepackage{array,tabularx,tabulary,booktabs} % Дополнительная работа с таблицами
+\usepackage{longtable}  % Длинные таблицы
+\usepackage{multirow} % Слияние строк в таблице
+\usepackage{upgreek}
+\usepackage{enumerate}
+\usepackage{ dsfont }
+
+%%% Цветной текст
+
+\usepackage[usenames]{color}
+\usepackage{colortbl}
+
+%%% Солнышко
+
+\usepackage[weather]{ifsym}
+
+%%% Гиперссылки
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{linkcolor}{HTML}{199B03} % цвет ссылок
+\definecolor{urlcolor}{HTML}{199B03} % цвет гиперссылок
+
+\hypersetup{pdfstartview=FitH,  linkcolor=linkcolor,urlcolor=urlcolor, colorlinks=true}
+
+\usepackage{minted}
+
+%% эконометрические сокращения
+\def \hb{\hat{\beta}}
+\DeclareMathOperator{\sVar}{sVar}
+\DeclareMathOperator{\sCov}{sCov}
+\DeclareMathOperator{\sCorr}{sCorr}
+
+
+\def \hs{\hat{s}}
+\def \hy{\hat{y}}
+\def \hY{\hat{Y}}
+\def \he{\hat{\varepsilon}}
+\def \v1{\vec{1}}
+\def \cN{\mathcal{N}}
+\def \e{\varepsilon}
+\def \z{z}
+
+\def \hVar{\widehat{\Var}}
+\def \hCorr{\widehat{\Corr}}
+\def \hCov{\widehat{\Cov}}
+
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator*{\plim}{plim}
+
+%% лаг
+\renewcommand{\L}{\mathrm{L}}
+
+% DEFS
+\def \mbf{\mathbf}
+\def \msf{\mathsf}
+\def \mbb{\mathbb}
+\def \tbf{\textbf}
+\def \tsf{\textsf}
+\def \ttt{\texttt}
+\def \tbb{\textbb}
+
+\def \wh{\widehat}
+\def \wt{\widetilde}
+\def \ni{\noindent}
+\def \ol{\overline}
+\def \cd{\cdot}
+\def \bl{\bigl}
+\def \br{\bigr}
+\def \Bl{\Bigl}
+\def \Br{\Bigr}
+\def \fr{\frac}
+\def \bs{\backslash}
+\def \lims{\limits}
+\def \arg{{\operatorname{arg}}}
+\def \dist{{\operatorname{dist}}}
+\def \VC{{\operatorname{VCdim}}}
+\def \card{{\operatorname{card}}}
+\def \sgn{{\operatorname{sign}\,}}
+\def \sign{{\operatorname{sign}\,}}
+\def \xfs{(x_1,\ldots,x_{n-1})}
+\def \Tr{{\operatorname{\mbf{Tr}}}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\amn}{arg\,min}
+\DeclareMathOperator*{\amx}{arg\,max}
+\def \cov{{\operatorname{Cov}}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+
+\def \xfs{(x_1,\ldots,x_{n-1})}
+\def \ti{\tilde}
+\def \wti{\widetilde}
+
+
+\def \mL{\mathcal{L}}
+\def \mW{\mathcal{W}}
+\def \mH{\mathcal{H}}
+\def \mC{\mathcal{C}}
+\def \mE{\mathcal{E}}
+\def \mN{\mathcal{N}}
+\def \mA{\mathcal{A}}
+\def \mB{\mathcal{B}}
+\def \mU{\mathcal{U}}
+\def \mV{\mathcal{V}}
+\def \mF{\mathcal{F}}
+
+\def \R{\mbb R}
+\def \N{\mbb N}
+\def \Z{\mbb Z}
+\def \P{\mbb{P}}
+%\def \p{\mbb{P}}
+\def \E{\mbb{E}}
+\def \D{\msf{D}}
+\def \I{\mbf{I}}
+
+\def \a{\alpha}
+\def \b{\beta}
+\def \t{\tau}
+\def \dt{\delta}
+\def \e{\varepsilon}
+\def \ga{\gamma}
+\def \kp{\varkappa}
+\def \la{\lambda}
+\def \sg{\sigma}
+\def \sgm{\sigma}
+\def \tt{\theta}
+\def \ve{\varepsilon}
+\def \Dt{\Delta}
+\def \La{\Lambda}
+\def \Sgm{\Sigma}
+\def \Sg{\Sigma}
+\def \Tt{\Theta}
+\def \Om{\Omega}
+\def \om{\omega}
+
+%%% Заголовок
+\author{Зехов Матвей}
+\title{Заметки по многошаговому прогнозированию}
+\date{\today}
+
+\begin{document}
+	
+\maketitle
+\tableofcontents
+
+\section{Основные стратегии многошагового прогнозирования}
+
+\subsection{Модель}
+
+Общая идея всех подходов: Больше параметров -> точнее модель, более гибкая, меньше сдвиг, больше дисперсия. И наоборот.
+
+Если нам важно более направление, чем значение прогноза, то следует выбирать модель с меньшим смещением, так как большое смещение искривляет направление. А если у нас короткие ряды, склонные к переобучению, то - с маленькой дисперсией.
+
+Нам необходимо спрогнозировать временной ряд из $ T $ наблдений на H шагов вперёд. Будем предполагать, что данные пришли к нам из модели (возможно нелинейной) следующего вида:
+
+\[
+y_{t}=f\left(x_{t-1}\right)+\varepsilon_{t} \text { with } x_{t}=\left[y_{t}, \ldots, y_{t-d+1}\right]^{\prime}
+\]
+
+$ \e_t $ - iid, среднее ноль, дисперсия $ \sigma^2 $, $\kappa=\mathbb{E}\left(\varepsilon^{4}\right)>0$.
+
+Процесс специфицируется функцией $ f $, размерностью эмбеддингов $ d $ и ошибкой $ \e_t $
+Цель -- оценить условное среднее  $\mu_{t+h | t}=\mathrm{E}\left(y_{t+h} | x_{t}\right),$ и мы будем пытаться использовать различные стратегии аппроксимации $\mu_{t+h | t} .$
+
+При горизонте прогнозирования один имеем просто 
+$\mu_{t+1 | t}=f\left(\boldsymbol{x}_{t}\right)$. Если $ f $ линейная, можно записать более общую формулу.
+
+\[
+\mu_{t+h | t}=\left\{\begin{array}{ll}{f\left(\left[f^{(h-1)}\left(\boldsymbol{x}_{t}\right), \ldots, f^{(h-d)}\left(\boldsymbol{x}_{t}\right)\right]^{\prime}\right),} & {\text { if } h>0} \\ {x_{t}^{\prime} w_{h},} & {\text { if } 1-d \leq h \leq 0}\end{array}\right.
+\] 
+
+где $ w_h $ имеет единицу на $ j = 1 - h $ позиции и нули в иных. Если функция $ f $ линейна, то условное среднее можно посчитать рекурсивно. В иных случаях при $ h > 1 $ и нелинейной $ f $ нет простой формы подсчёта $ \mu_{t+h | t} $
+
+Каждая стратегия включает оценку одной или более моделей, которые не обязательно той же формы, что и $ f $ и могут иметь иную размерность эмбеддингов. Для одношаговых прогнозов мы будем оценивать модель $y_{t}=m\left(\boldsymbol{x}_{t-1} ; \boldsymbol{\theta}\right)+e_{t}$ где $\boldsymbol{x}_{t}=\left[y_{t}, \ldots, y_{t-p+1}\right]^{\prime}$. Мы будем оценивать форму $ m $, параметры $ \theta $ и размерность $ p $. Если форма $ m $  совпадает с формой $ f $, то будем писать $ m \asymp f $. В идеале мы бы хотели, чтобы $p=d, m \asymp f$ и $ \theta $ были близки к истинным параметрам, но мы не будем придерживаться этих предположений из-за возможных ошибок спецификации. 
+
+Обозначим $\hat{m}^{(h)}\left(\boldsymbol{x}_{t}\right)$ прогнозы конкретной стратегии на горизонте $ h $ и обозначим $m^{(h)} = \mathbb{E}\left[\hat{m}^{(h)}\left(\boldsymbol{x}_{t}\right) | \boldsymbol{x}_{t}\right] $
+
+Тогда MSE прогноза на горизонте $ h $ можно записать следующей формулой:
+
+\[
+\operatorname{MSE}_{h}=\mathbb{E}\left[\left(y_{t+h}-\hat{m}^{(h)}\left(\boldsymbol{x}_{t}\right)\right)^{2}\right] =
+\]
+\[ \underbrace{\mathbb{E}\left[\left(y_{t+h}-\mu_{t+h | t}\right)^{2}\right]}_{\text {Noise }}+\underbrace{\left(\mu_{t+h | t}-m^{(h)}\left(\boldsymbol{x}_{t}\right)\right)^{2}}_{\text {Bias} \text{ b}_{h}^{2}}+\underbrace{\mathbb{E}\left[\left(\hat{m}^{(h)}\left(\boldsymbol{x}_{t}\right)-m^{(h)}\left(\boldsymbol{x}_{t}\right)\right)^{2}\right]}_{\text {Variance }}
+\]
+
+Декомпозиция получена следующим образом:
+
+\[
+\begin{aligned} &\mathrm{E}\left[(y-\hat{f})^{2}\right]\\ &=\mathrm{E}\left[(f+\varepsilon-\hat{f})^{2}\right] \\ &=\mathrm{E}\left[(f+\varepsilon-\hat{f}+\mathrm{E}[\hat{f}]-\mathrm{E}[\hat{f}])^{2}\right] \\ &\left.=\mathrm{E}\left[(f-\mathrm{E}[\hat{f}])^{2}\right]+\mathrm{E}\left[\varepsilon^{2}\right]+\mathrm{E}\left[(\mathrm{E}[\hat{f}]-\hat{f})^{2}\right]+2 \mathrm{E}[(f-\mathrm{E}[\hat{f}]) \varepsilon]+2 \mathrm{E}[\varepsilon(\mathrm{E}[\hat{f}]-\hat{f})\right] \\ 
+&+2 \mathrm{E}[(\mathrm{E}[\hat{f}]-\hat{f})(f-\mathrm{E}[\hat{f})] \\ &\left.=(f-\mathrm{E}[\hat{f}])^{2}+\mathrm{E}\left[\varepsilon^{2}\right]+\mathrm{E}\left[(\mathrm{E}[\hat{f}]-\hat{f})^{2}\right]+2(f-\mathrm{E}[\hat{f}]) \mathrm{E}[\varepsilon]+2 \mathrm{E}[\hat{f}]-\hat{f}\right]+2 \mathrm{E}[\mathrm{E}[\hat{f}]-\hat{f}](f-\mathrm{E}[\hat{f}])\\
+&\begin{array}{l}{=(f-\mathrm{E}[\hat{f}])^{2}+\mathrm{E}\left[\varepsilon^{2}\right]+\mathrm{E}\left[(\mathrm{E}[\hat{f}]-\hat{f})^{2}\right]} \\ {=(f-\mathrm{E}[\hat{f}])^{2}+\operatorname{Var}[y]+\operatorname{Var}[\hat{f}]} \\ {=\operatorname{Bias}[\hat{f}]^{2}+\operatorname{Var}[y]+\operatorname{Var}[\hat{f}]} \\ {=\operatorname{Bias}[\hat{f}]^{2}+\sigma^{2}+\operatorname{Var}[\hat{f}]}\end{array} \end{aligned}
+\]
+
+
+Более того, сдвиг можно разложить ещё на две составляющие:
+
+$B_{h}$
+$=\mathbb{E}_{x_{t}}\left[\left(\mu_{t+h | t}-\mathbb{E}_{Y_{T}}\left[m\left(x_{t} ; \hat{\theta}_{Y_{T}} ; h\right)\right]\right)^{2}\right]$
+
+$=\mathbb{E}_{x_{t}}[\underbrace{\left(\mu_{t+h | t}-m\left(x_{t} ; \theta^{*} ; h\right)\right.}_{A}$
+$\quad+\underbrace{\left.m\left(x_{t} ; \theta^{*} ; h\right)-\mathbb{E}_{Y_{T}}\left[m\left(x_{t} ; \hat{\theta}_{Y_{T}} ; h\right)\right]\right)^{2}}_{\text{B}}]$
+
+В этой части сознательно использованы несколько другие, более точные обозначения, которые позволят разобраться полнее. Интуитивно понять аналогию несложно. Часть А отображает различие между условным средним семейства моделей, которое мы рассматриваем. Например, если первое - нелинейное, а мы оцениваем линейную модель. Тогда правая часть А будет наилучшей из достижимых оценкой линейных параметров. Следует обратить внимание, что подставлены именно оптимальные параметры. Тогда А обозначает ограничения выбранной нами модели относительно истинной зависимости. 
+
+Часть B отображает ошибку вследствие ограничинности временных рядов до Т наблюдений. Она выражает как конечность выборки влияет на сдвиг. Это можно понять по тому, что в левой части B подставлены оптимальные параметры, а в правой - оценённые по конечному ряду.
+
+ Следовательно, даже если мы подберём оптимальную модель, то мы не сможем избавиться от части B  вследствие окнечной выборки.
+ 
+Важно заметить, что компонента шума не зависит ни от рассматриваемой модели, ни от сратегии построения прогноза. Она зависит только от процесса генерации данных.
+
+
+
+При росте числа наблюдений дисперсия будет сходиться к нулю, и далее она исключается из рассмотрения. Далее разложим левую часть (Noise) для горизонта h = 2. Аналогично для любого другого.
+
+\[
+y_{t+2}=f\left(y_{t+1}, \ldots, y_{t-d+2}\right)+\varepsilon_{t+2}=f\left(f\left(x_{t}\right)+\varepsilon_{t+1}, \ldots, y_{t-d+2}\right)+\varepsilon_{t+2}
+\]
+
+Используя разложение Тейлора до второго порядка (как я понял, относительно переменной $ \e_t $), получим:
+
+\[
+y_{t+2} \approx f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)+\varepsilon_{t+1} f_{x_{1}}+\frac{1}{2}\left(\varepsilon_{t+1}\right)^{2} f_{x_{1} x_{1}}+\varepsilon_{t+2},
+\]
+
+где $ f_{x_{1}} $ -- первая производная $ f $ по её первому аргументу, а $ f_{x_{1} x_{1}} $ -- вторая производная дважды по первому аргументу
+
+
+ Тогда шум можно раскрыть по следующей формуле (правая часть это математическое ожидание левой во второй строке):
+ 
+ \[
+ \begin{array}{l}{\mathbb{E}\left[\left(y_{t+2}-\mu_{t+2 | t}\right)^{2}\right]} \\ {\quad \approx \mathbb{E}\left[\left(f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)+\varepsilon_{t+1} f_{x_{1}}+\frac{1}{2} \varepsilon_{t+1}^{2} f_{x_{1} x_{1}}+\varepsilon_{t+2}-f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)-\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}\right)^{2}\right]} \\ {\quad=\sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4}\left(\kappa-\sigma^{4}\right) f_{x_{1} x_{1}}^{2}}\end{array}
+ \]
+ 
+ Тогда MSE на горизонте $ h = 2$ будет равно:
+ 
+ \[
+ \operatorname{MSE}_{2} \approx \sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4}\left(\kappa-\sigma^{4}\right) f_{x_{1} x_{1}}^{2}+\left(\mu_{t+h | t}-m^{(h)}\left(x_{t}\right)\right)^{2}
+ \]
+ 
+\subsection{Рекурсивная стратегия}
+
+При рекурсивной стратегии оценивается модель 
+
+\[
+y_{t}=m\left(\boldsymbol{x}_{t-1} ; \boldsymbol{\theta}\right)+e_{t}, \quad \text { where } \boldsymbol{x}_{t}=\left[y_{t}, \ldots, y_{t-p+1}\right]^{\prime}
+\]
+
+ где $ \E[e_t] = 0 $, целевая функция: $\mathbb{E}\left[\left(y_{t+1}-m\left(\boldsymbol{x}_{t} ; \boldsymbol{\theta}\right)\right)^{2} | \boldsymbol{x}_{t}\right]$, а параметры оцениваются следуюющим образом:
+ 
+ \[
+ \hat{\boldsymbol{\theta}}=\underset{\boldsymbol{\theta} \in \Theta}{\operatorname{argmin}} \sum_{t}\left(y_{t}-m\left(\boldsymbol{x}_{t-1} ; \boldsymbol{\theta}\right)\right)^{2}
+ \]
+ 
+ Прогнозы вычисляются рекурсивно относительно предыдущих:
+ 
+ \[
+ \hat{m}^{(h)}\left(x_{t}\right)=\left\{\begin{array}{ll}{\hat{m}\left(\left[\hat{m}^{(h-1)}\left(x_{t}\right), \ldots, \hat{m}^{(h-p)}\left(x_{t}\right)\right]^{\prime}\right),} & {\text { if } h>0} \\ {x_{t}^{\prime} w_{h},} & {\text { if } 1-p \leq h \leq 0}\end{array}\right.
+ \]
+ 
+ где $ \hat{m}(x) = m(x;\hat{\theta}) $.  Иногда это называют итеративным многошаговым прогнозированием. 
+ 
+
+ Элемент смещения $\delta\left(z_{t} ; \boldsymbol{\theta}\right)$ возникает из-за:
+ 
+ \begin{enumerate}[\Sun]
+ 	\item Недостатка гибкости рассматриваемой модели.
+ 	
+ 	\item Потенциального пропуска регрессоров во входных данных
+ 	
+ 	\item Неадекватного алгоритма оценки параметров $ \theta $.
+
+ \end{enumerate}
+
+
+Вариативность прогноза описывается элементом $\eta\left(z_{t} ; \boldsymbol{\theta}\right) \varepsilon_{\eta}$. Она возникает вследствие следующих причин:
+
+\begin{enumerate}[\Sun]
+	\item Ограниченности длины ряда при оценке $ \theta $
+	
+	\item Включение в $ z $ потенциально избыточных или бессмысленных переменных.
+	
+	\item  Избыточная гибкость модели и переобучение
+\end{enumerate}
+
+
+Предсказания рекурсивной стратегии:
+	
+	\[
+	m_h\left(x_{t} ; \hat{\theta}\right) =\underbrace{\underbrace{\underbrace{f\left(\boldsymbol{x}_{t}\right)}_{\mu_{t+h | t}}+\delta\left(z_{t} ; \boldsymbol{\theta}\right)}_{m\left(z_{t} ; \theta \right)}+\eta\left(z_{t} ; \boldsymbol{\theta}\right) \varepsilon_{\eta}}_{m\left(z_{t} ; \hat{\theta}\right)}
+	\]
+	
+
+
+ 
+ Выбор квадратичного функционала для $ \hat{\theta} $ обеспечивает $m^{(1)}\left(x_{t}\right)=\mu_{t+1 | t}$, и, как следствие, $ m \asymp f $ и $ p = d $. Следовательно, одношаговый прогноз будет несмещённым. Однако это не сохраняется для порядка 2 и более:
+ 
+ \[
+ \begin{aligned} b_{2}=\mu_{t+2 | t}-m^{(2)}\left(\boldsymbol{x}_{t}\right) & \approx f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}-m\left(m\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-p+2}\right) \\ & \approx\left[f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)-m\left(m\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-p+2}\right)\right]+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}} \end{aligned}
+ \]
+ 
+ Можно аналогично раскрыть и форму:
+ 
+ \[\begin{aligned} & m\left(x_{t} ; \hat{\theta} ; 2\right) =  m\left(m\left(z_{t} ; \hat{\theta}\right), \ldots, y_{t-p+2} ; \hat{\theta}\right) \approx f\left(f\left(x_{t}\right), \ldots, y_{t-p+2}\right) \\ &+\delta\left(f\left(x_{t}\right), \ldots, y_{t-p+2} ; \theta\right) +\eta\left(f\left(x_{t}\right), \ldots, y_{t-p+2} ; \theta\right) \varepsilon_{\eta_{2}} \\ &+\delta\left(z_{t} ; \theta\right) m_{z_{1}}+\frac{1}{2}\left[\delta\left(z_{t} ; \theta\right)\right]^{2} m_{z_{1} z_{1}} +\eta\left(z_{t} ; \theta\right) \varepsilon_{\eta_{1}} m_{z_{1}}+\frac{1}{2}\left[\eta\left(z_{t} ; \theta\right) \varepsilon_{\eta_{1}}\right]^{2} m_{z_{1} z_{1}} \end{aligned}
+ \]
+ 
+ Следовательно, даже при идеальных условиях  $ m \asymp f $ и $ p = d $, смещение будет отсутствовать только при линейности истинной функции $ f $. 
+ 
+ Для этой стратегии MSE будет равна:
+ 
+\[
+\begin{array}{l}{\text { MSE }_{2}^{\text {recursive }}} \\ {\quad \approx \sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4}\left(\kappa-\sigma^{4}\right) f_{x_{1} x_{1}}^{2}+\left(\left[f\left(f\left(x_{t}\right), \ldots, y_{t-d+2}\right)-m\left(m\left(x_{t}\right), \ldots, y_{t-p+2}\right)\right]+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}\right)^{2}}\end{array}
+\]
+
+При выполнении условий $ m \asymp f $ и $ p = d $ формула упрощается до \[
+\operatorname{MSE}_{2}^{\text {recursive }} \approx \sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4} \kappa f_{x_{1} x_{1}}^{2}
+\]
+
+Когда модель неправильно специфицирована или параметры оценены неверно, ашибка существенно больше. 
+
+Есть различные вариации:
+
+С оценкой своего параметра для каждого горизонта:
+
+\[
+\hat{\boldsymbol{\theta}}_{h}=\underset{\boldsymbol{\theta} \in \boldsymbol{\Theta}}{\operatorname{argmin}} \sum_{t}\left[y_{t}-m^{(h)}\left(\boldsymbol{x}_{t-h} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+Такую стратегию назовём RECMULTI
+
+Минимум по первым H горизонтам:
+
+\[
+\hat{\boldsymbol{\theta}}=\underset{\boldsymbol{\theta} \in \boldsymbol{\Theta}}{\operatorname{argmin}} \sum_{h=1}^{H} \sum_{t}\left[y_{t}-m^{(h)}\left(\boldsymbol{x}_{t-h} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+Достоинства: мало вычислений, только одна модель, низкая дисперсия, может быть лучше прямого метода, если модель правильно специфицирована
+
+Недостатки: Смещение, только одна модель
+\subsection{Прямая стратегия}
+
+Прямая стратегия: давайте оценивать для каждого горизонта свою модель.
+
+\[ y_{t}=m_{h}\left(y_{t-h}, \ldots, y_{t-h-p_{h}} ; \boldsymbol{\theta}_{h}\right)+e_{t, h} \]
+
+Тогда параметры для каждой модели будем оценивать МНК по соответствующим пространствам параметров и $ \hat{m}^{(h)}\left(\boldsymbol{x}_{t}\right)=m_{h}\left(\boldsymbol{x}_{t} ; \hat{\boldsymbol{\theta}}_{h}\right) $
+\[ \hat{\boldsymbol{\theta}}_{h}=\underset{\boldsymbol{\theta}_{h} \in \boldsymbol{\Theta}_{h}}{\operatorname{argmin}} \sum_{t}\left[y_{t}-m_{h}\left(\boldsymbol{x}_{t-h} ; \boldsymbol{\theta}_{h}\right)\right]^{2} \]
+
+Такой подход обычно называют "direct multi-step". Для оценки $ h $ моделей требуется больше времени. Теперь мы оцениваем не единую модель, а несколько независимых моделей
+
+Из-за квадратичных отклонений и $ m^{(h)}\left(x_{t}\right)=m_{h}\left(x_{t}\right) $ (истинная модель для горизонта h это h-ая модель)б bias модели при горизонте 2 равен:
+
+\[ b_{2}=\mu_{t+2 | t}-m^{(2)}\left(\boldsymbol{x}_{t}\right) \approx f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}-m_{2}\left(y_{t}, \ldots, y_{t-p_{2}+1}\right) \]
+
+Тогда эта стратегия буде вести к несмещённым оценкам когда $m_{2}\left(y_{t}, \ldots, y_{t-p+1}\right) \asymp f\left(f\left(x_{t}\right), \ldots, y_{t-d+2}\right)+ \frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}$. Эти условия будут выполняться в стучае, если $ m_2 $ будет достаточно гибкой моделью.
+
+Можно также дополнительно раскрыть формулу прогноза следующим образом:
+
+$m\left(\boldsymbol{x}_{t} ; \hat{\boldsymbol{\theta}}_{2} ; 2\right)$
+$\quad=\underbrace{\underbrace{\mu_{t+2 | t}+\delta\left(\boldsymbol{r}_{t} ; \boldsymbol{\theta}_{2}\right)}_{m_{2}\left(\boldsymbol{r}_{t} ; \boldsymbol{\theta}_{2}\right)}+\eta\left(\boldsymbol{r}_{t} ; \boldsymbol{\theta}_{2}\right) \varepsilon_{\eta} }_{\quad \quad \quad m_{2}\left(\boldsymbol{r}_{t} ; \hat{\boldsymbol{\theta}}_{2}\right)}$
+
+Следует обратить внимание, что в отличие от рекурсивной стратегии, в прямой сразу может возникнуть условное среднее без рекурсивного вызова функции от $ x_t $
+
+Во всех иных стратегиях прогноз будет выглядеть следующим образом:
+
+$g\left(\boldsymbol{x}_{t} ; \hat{\boldsymbol{\gamma}} ; 2\right)$
+$\quad= \underbrace{\underbrace{\mu_{t+2 | t}+\delta\left(\boldsymbol{r}_{t} ; \boldsymbol{\gamma}\right)}_{m_{2}\left(\boldsymbol{r}_{t} ; \boldsymbol{\gamma}\right)}+\eta\left(\boldsymbol{r}_{t} ; \boldsymbol{\gamma}\right) \varepsilon_{\eta}}_{\quad \quad m_{2}\left(\boldsymbol{r}_{t} ; \hat{\gamma}\right)}$
+
+где гамма, это набор параметров, различный для каждой стратегии. Все стратегии за исключение рекурсивной используют h-шаговую ошибку в качестве целевой функции.
+
+
+Вспоминая формулу 
+
+\[\mathrm{MSE}_{2} \approx \sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4}\left(\kappa-\sigma^{4}\right) f_{x_{1} x_{1}}^{2}+\left(\mu_{t+h | t}-m^{(h)}\left(x_{t}\right)\right)^{2}  \]
+
+можем получить аналогичную для прямого случая
+
+\[ \operatorname{MSE}_{2}^{\text {direct }} \approx \sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4}\left(\kappa-\sigma^{4}\right) f_{x_{1} x_{1}}^{2}+\left[f\left(f\left(x_{t}\right), \ldots, y_{t-d+2}\right)+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}-m_{2}\left(y_{t}, \ldots, y_{t-p_{2}+1}\right)\right]^{2} \]
+
+Если истинная стратегия несмещённая, то уравнение упростится до
+
+\[  \operatorname{MSE}_{2}^{\operatorname{direct}} \approx \sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4}\left(\kappa-\sigma^{4}\right) f_{x_{1} x_{1}}^{2} \]
+
+В отличие от рекурсивного случае здесь $ m_2 $ отражает не всю истинную модель и может быть достаточно гибкой чтобы подстроиться. Следовательно, несмещённый случай возможен. не только в линейном случае. 
+
+Получается, в идеальных условиях, когда $ m \asymp f \text { and } p=d $ для рекурсивной стратегии и прямая стратегия несмещённая, можно посчитать разницу ошибок:
+
+\[ \operatorname{MSE}_{2}^{\text {recursive }}-\operatorname{MSE}_{2}^{\text {direct }} \approx \frac{1}{4} \sigma^{4} f_{x_{1} x_{1}}^{2} \]
+
+
+Были работы, которые показали, что даже при линейности всех истинных зависимостей и стационарности ряда рекусивная модель хуже, чем прямая.
+
+У прямого метода помимо вычислительной сложности есть ещё проблема построения слишком разных моделей на разных горизонтах. Следовательно прогнозы строятся на независимых моделях с различными формами и условной информцией. Это как раз и увеличивает вариацию прогноза, но зато смещение низкое на нелинейных данных.	
+
+Может работать лучше рекурсивной стратегии, если она модель неверно специфицирована, так как ошибки спецификации обычно создают сдвиг. Ещё один недостаток: автокорреляция ошибок.
+
+\section{Комбинации прямой и рекурсивной стратегий}
+
+\subsection{DirRec}
+
+Эта смешанная стратегия использует различные наборы параметров$ \theta_{h} $ для каждого горизона $ h $, как в прямой стратегии, но включает предыдущие прогнозы вместе с другими входнымиз начениями:
+
+\[
+\hat{\boldsymbol{\theta}}_{h}=\underset{\boldsymbol{\theta}_{h} \in \boldsymbol{\Theta}_{h}}{\operatorname{argmin}} \sum_{t}\left[y_{t}-\left[m_{h}\left(\hat{m}_{h-1}, \ldots, \hat{m}_{1}, \boldsymbol{r}_{t-h} ; \boldsymbol{\theta}_{h}\right)\right]\right]^{2}
+\]
+
+где $\hat{m}_{h}$ -- это сокращение для  $m_{h}\left(\boldsymbol{r}_{t-h} ; \hat{\boldsymbol{\theta}}_{h}\right)$ 
+
+Тогда прогнозы для каждого горизонта из соответствующей модели получаются следующим образом: $\hat{\mu}_{T+h | T}=m_{h}\left(\hat{m}_{h-1}, \ldots, \hat{m}_{1}, \boldsymbol{r}_{T} ; \hat{\boldsymbol{\theta}}_{h}\right)$
+
+\subsection{MSRV}
+
+Ещё одна комбинация прямого и рекурсивного подходов. Если мы представим горизонты прогнозирования следующим образом: $H=L \times R$, то эта стратегия первые L моделей оценит как прямые, а потом использует их R раз для получения H прогнозов:
+
+\[
+\hat{\mu}_{T+h | T}=\left\{\begin{array}{ll}{m_{l}\left(\boldsymbol{r}_{T} ; \hat{\boldsymbol{\theta}}_{l}\right)} & {\text { if } h \leq L} \\ {m_{l}\left(\hat{m}_{l-1}, \ldots, \hat{m}_{1}, \boldsymbol{r}_{T}^{\prime} ; \hat{\boldsymbol{\theta}}_{l}\right)} & {\text { if } h>L}\end{array}\right.
+\]
+
+где $l=\left(h-1 \right) \% L+1, \hat{m}_{l} \text { это сокращение для }.$
+$m_{l}\left(\boldsymbol{r}_{T} ; \hat{\boldsymbol{\theta}}_{l}\right),$ и $\boldsymbol{r}_{T}^{\prime} \subset \boldsymbol{r}_{T}$
+
+Преимущество: время вычислений. Однако, из-за рекурсии точность также страдает.
+\subsection{Стратегия RECTIFY}
+
+Основная идея - взять плюсы двух первых. Она начинает с рекурсивных прогнозов и улучшает их так, что они становятся несмещёнными и имеют меньшую ошибку.
+
+Начнём с рекурсивных прогнозов на линейной модели. Они будут смещёнными даже когда процесс правильно специфицирован. Потом скорректируем их моделированием прогнозных ошибок через прямую стратегию и получим несмещённые прогнозы.
+
+Достоинство подхода в том, что он соединяет все модели прямого подхода через единую базовую модель, снизая разрегулировку, порождённую независимыми моделями. Грубо говоря, прямые модели станут более похожими друг на друга.
+
+Обозначим базовую линейную модель как $ y_{t}=z\left(x_{t-1} ; \boldsymbol{\theta}\right)+e_{t} $. Из неё получим рекурсивные прогнозы. После этого мы изменим прогозы базовой модели, применяя модели прямого прогнозирования к ошибкам рекурсиного прогноза. То есть мы будем фитить следующие модели:
+
+\[ y_{t}-z^{(h)}\left(y_{t-h}, \ldots, y_{t-h-p} ; \hat{\boldsymbol{\theta}}\right)=r_{h}\left(y_{t-h}, \ldots, y_{t-h-p_{h}} ; \gamma_{h}\right)+e_{t, h},  	 \forall h = 1 \ldots H \]
+
+Все параметры оценены через OLS. Прогнозы получены через суммирование базовой и дополнительной модели: $ \hat{m}^{(h)}\left(\boldsymbol{x}_{t}\right)=\hat{z}^{(h)}\left(\boldsymbol{x}_{t}\right)+\hat{r}_{h}\left(\boldsymbol{x}_{t}\right) $ 
+
+Пусть $ m^{(h)}\left(\boldsymbol{x}_{t}\right)=\mathbb{E}\left[\hat{m}^{(h)}\left(\boldsymbol{x}_{t}\right) | \boldsymbol{x}_{t}\right] $. Тогда смещение можно записать как 
+
+\[ \begin{aligned} b_{2} &=\mu_{t+2 | t}-m^{(2)}\left(\boldsymbol{x}_{t}\right) \\ & \approx f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}-\left[z\left(z\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-p+2}\right)+r_{2}\left(y_{t}, \ldots, y_{t-p_{2}+1}\right)\right] \\ &=\left[f\left(f\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-d+2}\right)-z\left(z\left(\boldsymbol{x}_{t}\right), \ldots, y_{t-p+2}\right)+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}\right]-r_{2}\left(y_{t}, \ldots, y_{t-p_{2}+1}\right) \end{aligned} \]
+
+Следовательно, стратегия будет несмещённой, когда $ r_{2}\left(y_{t}, \ldots, y_{t-p_{2}+1}\right) \asymp f\left(f\left(x_{t}\right), \ldots, y_{t-d+2}\right)-z\left(z\left(x_{t}\right), \ldots, y_{t-p+2}\right)+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}} $, то есть когда дополнительная модель достаточно гибкая, чтобы оценить условное среднее ошибок базовой модели.
+
+Смещение базовой модели скорректировано дополнительной моделью. Следовательно, отпадает необходимость условия $ z \asymp f $. В случае статьи рассматривалась модель линейной авторигрессии с отбором лага по AIC. Конечно, модель будет смещённой  для нелинейных моделей, но она поможет моделировать большую часть сигнала $ f $ и будет давать относительно маленькую дисперсию из - за своей линейности. Дополнительная модель должна быть достаточно гибкой и в статье рассматриваются оценки KNN для неё.
+
+Можно как и ранее вывести MSE для этой стратегии.
+
+\[
+\begin{aligned} \operatorname{MSE}_{2}^{\text {rectify }} \approx & \sigma^{2}\left(1+f_{x_{1}}^{2}\right)+\frac{1}{4}\left(\kappa-\sigma^{4}\right) f_{x_{1} x_{1}}^{2} \\ &+\left[\left[f\left(f\left(x_{t}\right), \ldots, y_{t-d+2}\right)-z\left(z\left(x_{t}\right), \ldots, y_{t-p+2}\right)+\frac{1}{2} \sigma^{2} f_{x_{1} x_{1}}\right]-r_{2}\left(y_{t}, \ldots, y_{t-p_{2}+1}\right)\right]^{2} \end{aligned}
+\]
+
+Когда стратегия несмещённая, она имеет такую же MSE, как и прямая стратегия.
+
+\[
+\mathrm{MSE}_{2}^{\text {recursive }}-\mathrm{MSE}_{2}^{\text {rectify }}=\mathrm{MSE}_{2}^{\text {recursive }}-\mathrm{MSE}_{2}^{\text {direct }} \approx \frac{1}{4} \sigma^{4} f_{x_{1} x_{1}}^{2}
+\]
+
+Однако, надо не забывать учитывать дисперсию. Хотя у обеих стратегий они стремятся к нулю, у модели rectify меньшая дисперсия на конечных выборках.
+
+\subsection{Оценка суммы сдвига и дисперсии}
+
+Для горизонта $ h=2 $ можно записать следующую формулу:
+
+\[
+\begin{array}{l}{B_{2}\left(\boldsymbol{x}_{t}\right)+V_{2}\left(\boldsymbol{x}_{t}\right)}  {\approx\left(\mu_{t+2 | t}-m\left(z_{t} ; \boldsymbol{\theta} ; 2\right)\right)^{2}} {\quad + \mathbb{E}_{\boldsymbol{Y}_{T}}\left[\left(m\left(z_{t} ; \hat{\boldsymbol{\theta}} ; 2\right)-m\left(z_{t} ; \boldsymbol{\theta} ; 2\right)\right)^{2} | \boldsymbol{x}_{t}\right]}\end{array}
+\]
+
+
+
+\subsection{Регрессионные методы и отбор моделей}
+
+В статье - линейная авторегрессия и KNN.
+
+Линейная модель отбирает порядок $ p $ по AIC.
+
+KNN - нелинейная и непараметрическая модель. Использовалось взвешенное среднее. k - количество взвешенно усреднённых соседей. Чем больше соседей - тем больше сглаживание, меньше дисперсия, больше смещение и наоборот
+
+\subsection{Оценка смещения и дисперсии}
+
+\[
+\begin{aligned} \mathrm{MSE}_{h} &=\frac{1}{L R} \sum_{i=1}^{L} \sum_{j=1}^{R}\left(y_{j}(h)-\hat{m}_{D^{i}}^{(h)}\left(\boldsymbol{x}_{j}\right)\right)^{2} \\ &=\text { Noise }_{h}+\operatorname{Bias}_{h}^{2}+\text { Variance }_{h} \end{aligned}
+\]
+
+Модели генерации данных:
+
+\begin{enumerate}[\Sun]
+	\item AR(6) - процесс, 	$\varepsilon_{t} \sim \mathrm{NID}(0,1)$
+	
+	\[
+	y_{t}=1.32 y_{t-1}-0.52 y_{t-2}-0.16 y_{t-3}+0.18 y_{t-4}-0.26 y_{t-5}+0.19 y_{t-6}+\varepsilon_{t}
+	\]
+	
+	\item STAR, $\varepsilon_{t} \sim \mathrm{NID}\left(0, \sigma^{2}\right)$, $\sigma^{2}=\left[0.05^{2}, 0.1^{2}\right]$
+	
+	\[
+	y_{t}=0.3 y_{t-1}+0.6 y_{t-2}+\left(0.1-0.9 y_{t-1}+0.8 y_{t-2}\right)\left[1+e^{\left(-10 y_{t-1}\right)}\right]^{-1}+\varepsilon_{t}
+	\]
+
+\end{enumerate}
+
+
+\section{Стратегии с множественными горизонтами}
+
+Все стратегии, описанные выше, можно отнести к стратегиям с одним горизонтам, то есть стратегиям, когда модель рассматривает каждый горизонт отдельно. Другой тип моделей будет рассматривать несколько горизонтов за один приём. Целевая функция для оценки параметров будет учитывать одновременно ошибки нескольких горизонтов и, соответственно, оценивать один набор параметров.
+
+Идея - учесть общие характеристики моделей несколькоих различных горизонтов вследствие автокорреляции. 
+
+Учёт параметров в такой присоединённой манере позволит:
+
+\begin{enumerate}[\Sun]
+	\item Учесть взаимозависимости между различными горизонтами прогнозирования и улучшить обобщающую способность модели.
+	
+	\item Избежать разрегулировки вследствие использования слишком разных моделей на каждом горизонте
+	
+	\item Это помогает при маленьком размере семпла, используя дополнительные семплы из связанных задач ??
+\end{enumerate}
+
+\subsection{Прямые стратегии}
+\subsubsection{Стратегия DIRJOINT}
+
+Эта стратегия передаёт параметры между всеми горизонтами и оценивает параметры по средней ошибке на всех горизонтах.
+\[
+\hat{\boldsymbol{\theta}}=\underset{\boldsymbol{\theta} \in \boldsymbol{\Theta}}{\operatorname{argmin}} \sum_{t} \frac{1}{H} \sum_{h=1}^{H}\left[y_{t}-m\left(\boldsymbol{r}_{t-h} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+Эта стратегия применялась в контексте нейронынх сетей. Очень легко понять на примере простого многослойного пресептрона, в котором входной слой имеет размерность $ p $, а выходной - размерность $ H $.  Прогнав все наблюдения на нём и минимизировав ошибку как раз и получим формулу выше. Если есть аналитическое решение в разумный срок, то ок, а иначе - прошагаем градиентным спуском.
+
+\subsubsection{Стратегия SJOINT}
+
+Эта модель также предполагает разделение моделей на L различных многогоризонтных моделей, в которых параметры оцениваются следующим образом:
+
+\[
+\hat{\boldsymbol{\theta}}_{l}=\underset{\theta_{l} \in \boldsymbol{\Theta}_{l}}{\operatorname{argmin}} \sum_{t} \frac{1}{R} \sum_{h=(l-1)R+1}^{l \times R}\left[y_{t}-m_{l}\left(\boldsymbol{r}_{t-h} ; \boldsymbol{\theta}_{l}\right)\right]^{2}
+\]
+
+Горизонты группируются через параметр $ l $, и для каждого из них будет свой набор параметров $ \boldsymbol{\theta}_{l} $
+
+\subsubsection{Стратегия DIRJOINTL}
+
+Эта модель усредняет ошибки на текущем горизонте, i предыдущих горизонтах и j последующих горизонтах.  Аналогично, можно использовать в нейросетях. 
+
+\[
+\hat{\boldsymbol{\theta}}_{h}=\underset{\boldsymbol{\theta}_{h} \in \boldsymbol{\Theta}_{h}}{\operatorname{argmin}} \sum_{t} \frac{1}{i+j+1} \sum_{h^{\prime}=h-i}^{h+j}\left[y_{t}-m_{h}\left(\boldsymbol{r}_{t-h^{\prime}} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+Как по ощущениям, все эти модели пытаются так или иначе сохранить несмещённость, но уменьшить дисперсию, уйдя от количества параметров. Например, DIRJOINT уже начинает сильно напоминать рекурсивную стратегию. Разве что усреднение по горизонтам может дать чуть большую устойчивость. Да и то слегка сомнительно.
+
+\subsubsection{Стратегия RECJOINT}
+\[
+\hat{\boldsymbol{\theta}}=\underset{\boldsymbol{\theta} \in \boldsymbol{\Theta}}{\operatorname{argmin}} \sum_{t} \frac{1}{H} \sum_{h=1}^{H}\left[y_{t}-m^{(h)}\left(z_{t-h} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+Различие с обычной рекурсивной стратегией в том, что здесь при оптимизации параметров учитывается влияние всех горизонтов. Эта штука очень похожа на BPTT из LSTM.
+
+\subsubsection{Стратегия RECJOINTL}
+
+Аналогично можем усреднять не все горизонты, а плюс-минус вперёдд и назад.
+
+\[
+\hat{\boldsymbol{\theta}}_{h}=\underset{\boldsymbol{\theta}_{h} \in \boldsymbol{\Theta}_{h}}{\operatorname{argmin}} \sum_{t} \frac{1}{i+j+1} \sum_{h^{\prime}=h-i}^{h+i}\left[y_{t}-m^{(h)}\left(\boldsymbol{r}_{t-h^{\prime}} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+Количество горизонтов, включённых в какую-либо оптимизируемую функцию далее будем обозначать как $L_{h} \subseteq\{1 \ldots, H\}$. В случае, например, DIRHOINTL: $L_{h}=\{h-i, \ldots, h, \ldots, h+i\}$
+
+\subsection{Рекурсивные стратегии}
+
+\subsubsection{Стратегия RECJOINT}
+
+Логичная идея: а давайте также усредним по всем горизонтам, но уже рекурсивную стратегию в рамках модели, прогнозирующей рекурсивно. 
+
+\[
+\hat{\boldsymbol{\theta}}=\underset{\boldsymbol{\theta} \in \boldsymbol{\Theta}}{\operatorname{argmin}} \sum_{t} \frac{1}{H} \sum_{h=1}^{H}\left[y_{t}-m^{(h)}\left(z_{t-h} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+Аналогично, можно усреднять не все горизонты, а несколько вперёд и назад:
+
+\[
+\hat{\boldsymbol{\theta}}_{h}=\underset{\boldsymbol{\theta}_{h} \in \boldsymbol{\Theta}_{h}}{\operatorname{argmin}} \sum_{t} \frac{1}{i+j+1} \sum_{h^{\prime}=h-i}^{h+i}\left[y_{t}-m^{(h)}\left(\boldsymbol{r}_{t-h^{\prime}} ; \boldsymbol{\theta}\right)\right]^{2}
+\]
+
+
+\section{Эксперименты и симуляции}
+
+
+\subsection{Параметры симуляций и результаты.}
+
+На длинных рядах прямая стратегия превосходит рекурсивную и имеет малый сдвиг.
+
+Хорошая практика -- обрезать первые три тысячи сгенерированных наблюдений для стабилизации временного ряда.
+
+На малеьких горизонтах прогнозирования рекурсивная и прямая стратегия очень похожи.
+
+Прямые прогнозы постепенно сходятся к средним прогнозам с ростом длины ряда и горизонта прогнозирования. 
+
+
+
+Нелинейность ряда и нелинейность модели прогнозирования ухудшает ухудшают сдвиг в рекурсивной стратегии. Рассматривая KNN-KNN можно заметить, что сильно уменьшается сдвиг, но сильно увеличиваеся дисперсия во всех моделях. Следовательно, не лучшая идея брать нелинейную модель в качестве базовой. В данном случае LINARP-KNN сработала лучше. Особенно заметно на коротком горизонте. В сравнении с прямой стратегией этот вариант сильно лучше прямой стратегии на коротких горизонтах и примерно сопоставим на длинных. Также она сильно лучше на коротких рядах и приближается к прямой стратегии с ростом длины ряда.
+
+В принципе, использование rectify всегда может быть оправданным чтобы избежать выбора между рекурсивной и прямой стратегиями.
+
+
+
+\end{document}
